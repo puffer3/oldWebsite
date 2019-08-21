@@ -32,6 +32,8 @@ Text Domain: flusk
 /* ///////////////////////////////////////////////////////////////////// 
 //  01 - Global 
 /////////////////////////////////////////////////////////////////////*/
+@import url(https://fonts.googleapis.com/css?family=Raleway:300&display=swap);
+
 
 * {outline: none !important;}
 
@@ -152,15 +154,15 @@ h1, h2, h3, h4, h5, h6{
 
 #header .top.solid {
     background: #282828;
-    padding-top: 15px;
-    padding-bottom: 15px;
+//    padding-top: 15px;
+//    padding-bottom: 15px;
 }
 
 #header .top h1{
 	margin-bottom: 0;
 }
 #header .top.solid .toggleDrawer i {
-    padding-top: 8px;
+//    padding-top: 8px;
 }
 
 #header .logo, #header .toggleDrawer{
