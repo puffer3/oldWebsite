@@ -40,28 +40,6 @@
 	</head>
 	
 	<body>
-		<div id="drawer-right">
-			<div class="cross text-right">
-				<a class="toggleDrawer" href="#"><i class="fa fa-times-circle fa-2x"></i></a>
-			</div>
-			<h2>Navigate</h2>
-			<nav>
-				<ul class="nav nav-pills nav-stacked">
-					<li>
-						<a href="#wrapper"><i class="fa fa-home"></i> Portfolio</a>
-					</li>
-					<li>
-						<a href="#portfolio"><i class="fa fa-bookmark"></i> Other Works</a>
-					</li>
-					<li>
-						<a href="#services"><i class="fa fa-tasks"></i> Equipment Services</a>
-					</li>
-					<li>
-						<a href="#blog"><i class="fa fa-wordpress"></i> Contact</a>
-					</li>
-				</ul>
-			</nav>
-		</div><!-- #drawer-right -->
 
 		<div id="wrapper">
 			
@@ -71,9 +49,9 @@
 						<div class="pull-left">
 							<h1><a class="logo" href="mailto:henryjamesglover@gmail.com">Henry James Glover</a></h1>
 						</div>
-						<div class="pull-right">
+<!-- 						<div class="pull-right">
 							<a class="toggleDrawer" href="#"><i class="fa fa-bars fa-2x"></i></a>
-						</div>
+						</div> -->
 					</section>
 					<section class="center">
 						<div class="slogan">
@@ -83,11 +61,11 @@
 							creating sounds
 						</div>
 					</section>
-					<!section class="bottom">
-						<!a id="scrollToContent" href="#">
-							<!img src="assets/images/arrow_down.png">
-						<!/a>
-					<!/section>
+					<section class="bottom">
+						<a id="scrollToContent" href="#">
+							<img src="assets/images/arrow_down.png">
+						</a>
+					</section>
 				</div>
 			</div><!-- header -->
 
@@ -102,10 +80,10 @@
 
 <video
     id="my-player"
-    class="video-js"
+    class="video-js vjs-default-skin vjs-16-9"
     controls disablePictureInPicture
     preload="auto"
-    vjs-fluid>
+    data-setup='{"fluid": true}'>
   <source src="media/m1e.mp4" type="video/mp4"></source>
   <p class="vjs-no-js">
     To view this video please enable JavaScript, and consider upgrading to a
@@ -119,7 +97,7 @@
 <br>
 <br>
 <br>
-<audio id="teaterroir" class="video-js vjs-default-skin" controls="" preload="auto" data-setup="{}">
+<audio id="teaterroir" class="video-js vjs-default-skin vjs-16-9"  controls="" preload="auto" data-setup="{}">
 <source src="media/terroirtea.mp3" type="audio/mp3"/>
 </audio>			
 
