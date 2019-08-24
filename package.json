@@ -1,0 +1,23 @@
+{
+  "name": "henryjamesglover.com",
+  "version": "1.0.0",
+  "description": "Sound Portfolio",
+  "main": "index.js",
+  "dependencies": {
+    "video.js": "^7.6.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/puffer3/puffer3.github.io.git"
+  },
+  "author": "Henry Glover",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/puffer3/puffer3.github.io/issues"
+  },
+  "homepage": "https://github.com/puffer3/puffer3.github.io#readme"
+}
