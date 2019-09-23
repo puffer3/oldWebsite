@@ -79,11 +79,25 @@ a:hover {
 }
 
 
-h1, h2, h3, h4, h5, h6{		
+h1, h2, h3, h4, h5{		
 	margin: 0 0 15px 0;	
 	color: #282828;
 	font-family: 'Raleway' ;
 }
+
+
+h6{		
+	font-size: 3em;
+	margin: 0 0 15px 0;	
+	color: #ffffff;
+	font-family: 'Raleway' ;
+}
+
+.purp {
+  background-color: #1b0730;
+}
+
+
 
 /*.btn{border-radius: 0;}
 .btn-o {
