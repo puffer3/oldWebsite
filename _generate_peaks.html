@@ -1,0 +1,322 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Audio Waveform Player with Playlist</title>
+       
+        <style type="text/css">
+
+            #waveform{
+                display: none;
+            }
+
+            #loader {
+                border: 10px solid #f3f3f3; /* Light grey */
+                border-top: 10px solid #3498db; /* Blue */
+                border-radius: 50%;
+                width: 20px;
+                height: 20px;
+                margin: 10px;
+                animation: spin 2s linear infinite;
+                display: none;
+            }
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+
+           #output{
+                font-size: 16px;
+                margin: 10px;
+                height: 100%;
+                border: 1px solid #ddd;
+                display: none;
+           }
+           label{
+                cursor: pointer;
+           }
+           #exportLink{
+                display: none;
+           }
+
+           .options{
+                padding-bottom: 20px;
+           }
+        
+        </style>
+
+        
+        <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+        <script type="text/javascript" src="js/wavesurfer.js"></script>
+        <script type="text/javascript" src="js/jsmediatags.min.js"></script>
+        <script type="text/javascript">
+
+            jQuery(document).ready(function($){
+
+                "use strict"
+
+                var dataArr = [],
+                processArr = [],
+                len, 
+                counter,
+                createPeakNameSrc = 'filename',
+                peakType = 'pcm',
+                exportData,
+                wavesurfer = Object.create(WaveSurfer),
+                loader = $('#loader'),
+                output = $('#output'),
+                exportLink = $('#exportLink')
+
+                $('input[name=createPeakNameSrc]').on('change',function() {
+                    if(this.checked){
+                        createPeakNameSrc = this.value;
+                    }
+                }).change();
+
+                $('input[name=peakType]').on('change',function() {
+                    if(this.checked){
+                        peakType = this.value;
+                    }
+                }).change();
+
+                wavesurfer.init({
+                    container: document.getElementById('waveform'),
+                    backend: 'MediaElement',/*!important*/
+                });
+
+                wavesurfer.on('waveform_ME_noPeaks', function() {
+
+                    if(peakType == 'pcm'){
+                        //https://wavesurfer-js.org/docs/methods.html
+                        var pcm = wavesurfer.exportPCM(1024, 1024, true);
+
+                        output.append('<br>Done creating peak: ' + dataArr[counter].peakName);
+
+                        exportData.push({name: dataArr[counter].peakName, pcm: pcm.substring(1, pcm.length-1)})
+                        
+                        getPeaks();
+
+                    }else if(peakType == 'peak'){
+
+                        var peaks = wavesurfer.backend.getPeaks(900);
+                        if(peaks.length){
+                            writePeaks(peaks, dataArr[counter].peakName);
+                        }else{
+                            output.append('<br>Fail creating peak: ' + dataArr[counter].peakName);
+                            getPeaks();
+                        }
+
+                    }
+                           
+                });
+
+                function writePeaks(peaks, title){
+
+                    var postData = [
+                        {name: 'action', value: 'awp_write_peaks'},
+                        {name: 'peaks', value: peaks},
+                        {name: 'id', value: title},
+                        {name: 'path', value: null}
+                    ];
+
+                    $.ajax({
+                        url: 'peaks/peaks.php',
+                        type: 'post',
+                        data: postData,
+                        dataType: 'json',
+                    }).done(function(response) {
+                        //console.log(response);
+                        if(response.message == 'success'){
+                            output.append('<br>Done creating peak: ' + dataArr[counter].peakName);
+                        }else if(response.message == 'exist'){
+                            output.append('<br>Peak already exist: ' + dataArr[counter].peakName);
+                        }
+                        getPeaks();
+                    }).fail(function(jqXHR, textStatus, errorThrown) {
+                        console.log(jqXHR.responseText);
+                        output.append('<br>Fail creating peak: ' + dataArr[counter].peakName);
+                        getPeaks();
+                    }); 
+
+                }
+
+                var input = $("#input").change(function(e) {
+
+                    $(input).prop('disabled',true);
+                    loader.show();
+                    output.show().html('');
+                    exportLink.hide();
+                    exportData = [];
+
+                    dataArr = [];
+                    len = this.files.length;
+                    var i, fn;
+
+                    for(i=0; i < len; i++){
+                        fn = this.files[i].name;
+                        fn = fn.substr(0,fn.lastIndexOf('.'))
+                        processArr.push({file:this.files[i], peakName: fn});
+                    }
+
+                    if(createPeakNameSrc == 'title'){
+                        getId3();
+                    }else if(createPeakNameSrc == 'filename'){
+                        getFiles();
+                    }
+
+                });
+
+                function getId3(){
+
+                    var data = processArr.shift();
+
+                    jsmediatags.read(data.file, {
+                        onSuccess: function(tag) {
+                            var tags = tag.tags;
+
+                            dataArr.push(data);
+                            dataArr[dataArr.length-1].peakName = tags.title;
+
+                            if(processArr.length){
+                                getId3();
+                            }else{
+                                
+                                output.append('Done reading Id3 tags<br>');
+                                processArr = dataArr.slice();
+                                dataArr = [];
+                                getFiles();
+                            }
+                        },
+                        onError: function(error) {
+                            console.log("ID3 error: ", error.type, error.info);
+                            if(processArr.length){
+                                getId3();
+                            }else{
+
+                                output.append('Done reading Id3 tags<br>');
+                                processArr = dataArr.slice();
+                                dataArr = [];
+                                getFiles();
+                            }
+                        }
+                    });
+
+                }
+
+                function getFiles() {
+
+                    var data = processArr.shift();
+
+                    var title; 
+
+                    var fileReader = new FileReader();
+                    fileReader.onload = function(e){
+
+                        dataArr.push(data);
+                        dataArr[dataArr.length-1].url = e.target.result;
+
+                        if(processArr.length){
+                            getFiles();
+                        }else{
+                            output.append('Done reading all file inputs<br>Started peak creation<br>');
+                            counter = -1; 
+                            len = dataArr.length;
+                            getPeaks(); 
+                        }
+          
+                    } 
+                    fileReader.onerror = function(e){
+                        console.log("fileReader failed", e.name + ": " + e.message);
+
+                        if(processArr.length){
+                            getFiles();
+                        }else{
+                            output.append('Done reading all file inputs<br>Started peak creation<br>');
+                            counter = -1; 
+                            len = dataArr.length;
+                            getPeaks(); 
+                        }   
+                    }                 
+
+                    fileReader.readAsDataURL(data.file);
+                  
+                }
+
+                function getPeaks() {
+                    counter++;
+                    if(counter == len){
+                        output.append('<br><br>Done creating all peaks!');
+                        dataArr = null;
+                        loader.hide();
+                        $(input).prop('disabled', false);
+
+                        if(peakType == 'pcm'){
+
+                            //Get the file contents
+                             var txtFile = "test.txt";
+                             var file = new File([""], txtFile);
+                             var str = JSON.stringify(exportData);
+
+                             //Save the file contents as a DataURI
+                             var dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(str);
+
+                             //Write it as the href for the link
+                             exportLink.attr('href', dataUri).show();
+
+                        }
+
+                    }else{
+                        wavesurfer.empty();
+                        wavesurfer.load(dataArr[counter].url);
+                    }
+                }
+
+              
+                
+
+
+
+              
+               
+            });
+
+        </script>
+        
+	</head>
+	<body>
+
+        <p class="info">Run this file on server. Do not change folder structure. This file needs to be located in "content" directory with all other folders and files (css, js, includes, peaks...).
+
+        <br><br>
+
+        Peak names can be created from audio ID3 title tags (your audio files need to have ID3 title tag embedded) or from audio filenames (without extension). Peak name in html is used with data-peak-name="PEAK_NAME_HERE" attribute. Peak name should be made out of safe characters.<br><br>
+
+        You can either generate peak files (which are placed in peak directory) or you can generate peaks in byte array format which you can download in json file ( byte array format in html is used with data-peak-array="PEAK_ARRAY_HERE" attribute ).
+
+        <br><br>Upload audio files and wait for peaks to be created in peaks directory. For really large audio files peak creation might take a while.</p>
+
+        <div id='waveform'></div>
+
+        <div class='options'>
+            <input type="radio" id="radio_title" name="createPeakNameSrc" value="title" checked="checked"><label for="radio_title">  Create peak name from ID3 title tag</label><br>
+            <input type="radio" id="radio_filename" name="createPeakNameSrc" value="filename"><label for="radio_filename"> Create peak name from audio file name</label>
+        </div>
+
+        <div class='options'>
+            <input type="radio" id="radio_peak" name="peakType" value="peak" checked="checked"><label for="radio_peak">  Create peak files</label><br>
+            <input type="radio" id="radio_pcm" name="peakType" value="pcm"><label for="radio_pcm"> Create byte array in json file</label>
+        </div>
+
+        <input type='file' id="input" accept="audio/*" multiple/>
+
+        <div id="loader"></div>
+
+        <div id='output'></div>
+
+        <a href="#" id="exportLink" download="example.json">
+            Download as JSON
+        </a>
+
+	</body>
+</html>

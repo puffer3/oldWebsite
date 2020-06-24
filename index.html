@@ -29,7 +29,15 @@
 		<link rel="stylesheet" href="assets/css/style.css" media="screen"/>
 
 
-
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"><!-- icons -->
+<!-- 		<link rel="stylesheet" type="text/css" href="css/awp_default.css"> -->
+		<link rel="stylesheet" type="text/css" href="css/jquery.mCustomScrollbar.css" media="all"><!-- playlist scroll -->
+		 
+		<script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+		<script type="text/javascript" src="js/wavesuzrfer.js"></script>
+		<script type="text/javascript" src="js/jquery.mCustomScrollbar.concat.min.js"></script><!-- playlist scroll -->
+		<script type="text/javascript" src="js/new_cb.js"></script>
+		<script type="text/javascript" src="js/new.js"></script>
 
 
 		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -41,9 +49,95 @@
 		<!--[if IE 8]>
 	    	<script src="assets/js/selectivizr.js"></script>
 	    <![endif]-->
+
+	    <script type="text/javascript">
+ 
+    var awp_player;  
+    jQuery(document).ready(function($) {
+         
+        var settings = {
+        instanceName:"default2",
+        sourcePath:"",
+        playlistList:"#awp-playlist-list",
+        activePlaylist:"playlist-audio1",
+        activeItem:0,
+        volume:0.5,
+        autoPlay:true,
+        drawWaveWithoutLoad:false,
+        randomPlay:false,
+        loopingOn:true,
+        autoAdvanceToNextMedia:true,
+        mediaEndAction:"loop",
+        soundCloudAppId:"",
+        gDriveAppId:"",
+        useKeyboardNavigationForPlayback:true,
+        usePlaylistScroll:true,
+        playlistScrollOrientation:"vertical",
+        playlistScrollTheme:"light",
+        useDownload:true,
+        facebookAppId:"",
+        useNumbersInPlaylist: true,
+        numberTitleSeparator: ".  ",
+        artistTitleSeparator: " - ",
+        playlistItemContent:"title",
+        wavesurfer:{
+            waveColor: '#F444D9',
+            progressColor: '#33FDFF',
+            barWidth: 3,
+            cursorColor: '#ffffff',
+            cursorWidth: 1,
+            height: 100,
+        }
+    };
+ 
+    awp_player = $("#awp-wrapper").awp(settings);
+ 
+    });
+ 
+</script>
 	</head>
 	
 	<body>
+
+
+		<div id="awp-wrapper">
+		 
+		    <div class="awp-player-thumb-wrapper">
+		 	
+		        <div class="awp-player-thumb"></div>
+		 
+		        <div class="awp-playback-toggle"><i class="fa fa-play"></i></div>
+		 
+		    </div>
+		 
+		    <div class="awp-player-holder">
+		 
+		        <div class="awp-waveform-wrap">
+		            <div class="awp-waveform awp-hidden"></div>  
+		            <div class="awp-waveform-img awp-hidden"><!-- image waveform backup -->
+		                <div class="awp-waveform-img-load"></div>
+		                <div class="awp-waveform-img-progress-wrap"><div class="awp-waveform-img-progress"></div></div>
+		            </div>
+		            <span class="awp-waveform-preloader"></span>
+		        </div>  
+		 
+		    </div>
+		       
+		    <div class="awp-playlist-holder">
+		        <div class="awp-playlist-inner">
+		            <div class="awp-playlist-content">
+		                <!-- playlist items are appended here! -->
+		            </div>
+		        </div>
+		         
+		        <div class="awp-preloader"></div>
+		 
+		    </div>
+		 
+		</div>
+
+
+
 
 		<div id="wrapper">
 			
@@ -151,6 +245,21 @@
 				<h6 class="card-title">eSuite</h6>
 				<p class="card-text">Here are some examples of the musical and abstract sounds I make on synthesizers.</p>
 			</div>
+				<div id="awp-playlist-list">
+				 
+				     <ul id="playlist-audio1">
+				 
+				        <li class="awp-playlist-item" data-type="audio" data-mp3="media/audio/2/01.mp3" data-artist="Soundroll" data-title="A Way To The Top" data-thumb="media/audio/2/01.jpg"></li>
+				 
+				        <li class="awp-playlist-item" data-type="audio" data-mp3="media/audio/2/02.mp3" data-artist="Soundroll" data-title="Feel Good Journey" data-thumb="media/audio/2/02.jpg"></li>
+				 
+				        <li class="awp-playlist-item" data-type="audio" data-mp3="media/audio/2/03.mp3" data-artist="Soundroll" data-title="Fight No More" data-thumb="media/audio/2/03.jpg"></li>
+				 
+				    </ul>    
+				 
+				</div>
+
+
 				<video id="Cue1" class="video-js vjs-default-skin"   controls="" preload="auto" poster="" data-setup='{"fluid": true}'>
 				<source src="media/cue1.mp3" type="audio/mp3"/>
 				</video>
@@ -170,20 +279,25 @@
 				<video id="Cue4" class="video-js vjs-default-skin"   controls="" preload="auto" poster="" data-setup='{"fluid": true}'>
 				<source src="media/BW.mp3" type="audio/mp3"/>
 				</video>
-				<br>
-				<br>
 
 			    <p class="card-text"><small class="text-muted"> Demonstrates: Synthesis, Composition, Sound Design, Mixing</small></p>	
 			</div>	
 		</div>	
 </center>
 
-<br>
-<br>
-<br>
 
-<br>
-<br>
+<html>
+<body>
+
+<audio controls>
+  <source src="media/cue1.mp3" type="audio/mpeg">
+  <source src="media/cue2.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+
+</body>
+</html>
+
 
 </center>
 

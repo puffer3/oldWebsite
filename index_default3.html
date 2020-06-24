@@ -1,0 +1,166 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Audio Waveform Player with Playlist</title>
+
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"><!-- icons -->
+		<link rel="stylesheet" type="text/css" href="css/awp_default3.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.mCustomScrollbar.css" media="all" /><!-- playlist scroll -->
+        
+        <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+        <script type="text/javascript" src="js/wavesurfer.js"></script>
+        <script type="text/javascript" src="js/jsmediatags.min.js"></script><!-- id3 tags -->
+        <script type="text/javascript" src="js/jquery.mCustomScrollbar.concat.min.js"></script><!-- playlist scroll -->
+		<script type="text/javascript" src="js/jsmediatags.min.js"></script><!-- id3 tags -->
+        <script type="text/javascript" src="js/new_cb.js"></script>
+        <script type="text/javascript" src="js/new.js"></script>			
+        <script type="text/javascript">
+
+            var awp_player;  
+            jQuery(document).ready(function($){
+
+                var settings = {
+                    instanceName:"default3",
+                    sourcePath:"",
+                    playlistList:"#awp-playlist-list",
+                    activePlaylist:"playlist-audio1",
+                    activeItem:0,
+                    volume:0.5,
+                    autoPlay:true,
+                    drawWaveWithoutLoad:false,
+                    randomPlay:false,
+                    loopingOn:true,
+                    autoAdvanceToNextMedia:true,
+                    mediaEndAction:"loop",
+                    soundCloudAppId:"r4wruADPCq7iqJomagvYpdehvILa2bgE",
+                    gDriveAppId:"AIzaSyB0Rw9B0WgjWQUYoxRi_rwpwr5E0ZxXuXs",
+                    useKeyboardNavigationForPlayback:true,
+                    usePlaylistScroll:true,
+                    playlistScrollOrientation:"vertical",
+                    playlistScrollTheme:"light-thin",
+                    useDownload:true,
+                    useShare:false,
+                    useTooltips:true,
+                    facebookAppId:"644413448983338",
+                    useNumbersInPlaylist: true,
+                    numberTitleSeparator: ".  ",
+                    artistTitleSeparator: " - ",
+                    playlistItemContent:"title",
+                    wavesurfer:{
+                        waveColor: '#ffd454',
+                        progressColor: '#fff',
+                        barWidth: 3,
+                        cursorColor: '#ffffff',
+                        cursorWidth: 1,
+                        height: 100,
+                    }
+                };
+
+                awp_player = $("#awp-wrapper").awp(settings);
+				
+				
+
+            }); 
+
+        </script>
+        
+	</head>
+	<body>
+
+        <!-- player code -->   
+        <div id="awp-wrapper">
+
+            <div class="awp-player-thumb-wrapper">
+
+                <div class="awp-player-thumb"></div>
+
+            </div>
+
+            <div class="awp-player-holder">
+
+                <div class="awp-playback-toggle"><i class="fa fa-play"></i></div>
+
+                <div class="awp-info">
+                    <p class="awp-player-artist"></p>
+                    <p class="awp-player-title"></p>
+                </div>  
+
+                <div class="awp-volume-wrapper">
+                    <div class="awp-player-volume"><i class="fa fa-volume-up"></i></div>
+                    <div class="awp-volume-seekbar awp-tooltip-top">
+                         <div class="awp-volume-bg"></div>
+                         <div class="awp-volume-level"></div>
+                    </div>
+                </div>
+
+                <div style="clear:both;"></div>
+
+                <div class="awp-waveform-wrap">
+                    <div class="awp-waveform awp-hidden"></div>  
+                    <div class="awp-waveform-img awp-hidden"><!-- image waveform backup -->
+                        <div class="awp-waveform-img-load"></div>
+                        <div class="awp-waveform-img-progress-wrap"><div class="awp-waveform-img-progress"></div></div>
+                    </div>
+                    <span class="awp-waveform-preloader"></span>
+                </div>  
+
+                <p class="awp-media-time-total awp-hidden">0:00</p>
+                <p class="awp-media-time-current awp-hidden">0:00</p>
+
+            </div>
+              
+            <div class="awp-playlist-holder">
+                <div class="awp-playlist-filter-msg"><p>NOTHING FOUND!</p></div>
+                <div class="awp-playlist-inner">
+                    <div class="awp-playlist-content">
+                        <!-- playlist items are appended here! --> 
+                    </div>
+                </div>
+                
+                <div class="awp-preloader"></div>
+
+                <div class="awp-bottom-bar">
+
+                    <input class="awp-search-filter" type="text" value="filter...">
+                    <div class="awp-sort-alpha awp-tooltip-top" data-awptooltip="Alphabetic sort"><i class="fa fa-sort-alpha-desc awp-sr-bar-i awp-icon-color"></i></div>
+
+                    <div class="awp-share-item awp-tooltip-top" data-type="tumblr" data-awptooltip="Share on Tumblr"><i class="fa fa-tumblr awp-sr-bar-i awp-icon-color"></i></div>
+                    <div class="awp-share-item awp-tooltip-top" data-type="twitter" data-awptooltip="Share on Twitter"><i class="fa fa-twitter awp-sr-bar-i awp-icon-color"></i></div>
+                    <div class="awp-share-item awp-tooltip-top" data-type="facebook" data-awptooltip="Share on Facebook"><i class="fa fa-facebook awp-sr-bar-i awp-icon-color"></i></div> 
+
+                </div>
+
+            </div>
+        
+        </div>  
+
+
+
+        <!-- PLAYLIST LIST -->
+        <div id="awp-playlist-list">
+
+             <ul id="playlist-audio1">
+
+                <li class="awp-playlist-item" data-type="audio" data-mp3="media/audio/2/01.mp3" data-artist="Soundroll" data-title="A Way To The Top" data-thumb="media/audio/2/01.jpg" data-share="http://audiojungle.net/item/a-way-to-the-top/162200?ref=Tean"></li>
+
+                <li class="awp-playlist-item" data-type="audio" data-mp3="media/audio/2/02.mp3" data-artist="Soundroll" data-title="Feel Good Journey" data-thumb="media/audio/2/02.jpg" data-share="http://audiojungle.net/item/feel-good-journey/119565?ref=Tean"></li>
+
+                <li class="awp-playlist-item" data-type="audio" data-mp3="media/audio/2/03.mp3" data-artist="Soundroll" data-title="Fight No More" data-thumb="media/audio/2/03.jpg" data-share="http://audiojungle.net/item/fight-no-more/143561?ref=Tean"></li>
+
+                <li class="awp-playlist-item" data-type="audio" data-mp3="media/audio/2/04.mp3" data-artist="Soundroll" data-title="Funky Boom" data-thumb="media/audio/2/04.jpg" data-share="http://audiojungle.net/item/funky-boom/127833?ref=Tean"></li>
+
+                <li class="awp-playlist-item" data-type="audio" data-mp3="media/audio/2/05.mp3" data-artist="Soundroll" data-title="Pump The Club" data-thumb="media/audio/2/05.jpg" data-share="http://audiojungle.net/item/pump-the-club/166358?ref=Tean"></li>
+
+                <li class="awp-playlist-item" data-type="audio" data-mp3="media/audio/2/06.mp3" data-artist="Soundroll" data-title="Driving In My Car" data-thumb="media/audio/2/06.jpg" data-share="http://audiojungle.net/item/driving-in-my-car/826142?ref=Tean"></li>
+
+                <li class="awp-playlist-item" data-type="audio" data-mp3="media/audio/2/07.mp3" data-artist="Soundroll" data-title="Speed Of Fire" data-thumb="media/audio/2/07.jpg" data-share="http://audiojungle.net/item/speed-of-fire/400088?ref=Tean"></li>
+
+
+            </ul>
+
+        </div>     
+		
+	</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Audio Waveform Player with Playlist</title>
+       
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"><!-- icons -->
+		<link rel="stylesheet" type="text/css" href="css/awp_wall4.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.mCustomScrollbar.css" media="all" /><!-- playlist scroll -->
+        
+        <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+        <script type="text/javascript" src="js/wavesurfer.js"></script>
+		<script type="text/javascript" src="js/jsmediatags.min.js"></script><!-- id3 tags -->
+        <script type="text/javascript" src="js/jquery.mCustomScrollbar.concat.min.js"></script><!-- playlist scroll -->
+        <script type="text/javascript" src="js/new_cb.js"></script>
+        <script type="text/javascript" src="js/new.js"></script>			
+        <script type="text/javascript">
+            
+            var awp_player; 
+
+            jQuery(document).ready(function($){
+                
+                var settings = {
+                    instanceName:"wall4",
+                    sourcePath:"",
+                    playlistList:"#awp-playlist-list",
+                    activePlaylist:"playlist-audio2",
+                    activeItem:0,
+                    volume:0.5,
+                    autoPlay:true,
+                    preload:"auto",
+                    randomPlay:false,
+                    loopingOn:true,
+                    autoAdvanceToNextMedia:false,
+                    soundCloudAppId:"r4wruADPCq7iqJomagvYpdehvILa2bgE",
+                    useTooltips:true,
+                    useKeyboardNavigationForPlayback:false,
+                    usePlaylistScroll:true,
+                    playlistScrollOrientation:"vertical",
+                    playlistScrollTheme:"minimal",
+                    useNumbersInPlaylist: false,
+                    numberTitleSeparator: ".  ",
+                    artistTitleSeparator: " - ",
+                    playlistItemContent:"title,thumb",
+                    wavesurfer:{
+                        waveColor: '#505050',
+                        progressColor: '#ff00ff',
+                        barWidth: 0,
+                        cursorColor: '#ffffff',
+                        cursorWidth: 1,
+                        height: 100,
+                    }
+                };
+                awp_player = $("#awp-wrapper").awp(settings); 
+
+            });
+
+        </script>
+        
+	</head>
+	<body>
+
+        <!-- player code -->   
+        <div id="awp-wrapper">
+
+            <div class="awp-player-thumb-wrapper">
+
+                <div class="awp-playback-toggle"><i class="fa fa-play"></i></div>
+
+            </div>
+
+            <div class="awp-player-holder">
+
+                <div class="awp-waveform-wrap">
+                    <div class="awp-waveform awp-hidden"></div>  
+                    <div class="awp-waveform-img awp-hidden"><!-- image waveform backup -->
+                        <div class="awp-waveform-img-load"></div>
+                        <div class="awp-waveform-img-progress-wrap"><div class="awp-waveform-img-progress"></div></div>
+                    </div>
+                    <span class="awp-waveform-preloader"></span>
+                </div>  
+
+            </div>
+      
+            <div class="awp-playlist-holder">
+                <div class="awp-playlist-filter-msg"><p>NOTHING FOUND!</p></div>
+                <div class="awp-playlist-inner">
+                    <div class="awp-playlist-content">
+                        <!-- playlist items are appended here! --> 
+                    </div>
+                </div>
+            </div> 
+
+            <!-- preloader --> 
+            <div class="awp-preloader">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+
+            <div class="awp-bottom-bar">
+
+                <input class="awp-search-filter" type="text" value="filter...">
+                <div class="awp-sort-alpha awp-tooltip-top" data-awptooltip="Alphabetic sort"><i class="fa fa-sort-alpha-desc awp-sr-bar-i awp-icon-color"></i></div>
+
+                <div class="awp-share-item awp-tooltip-top" data-type="tumblr" data-awptooltip="Share on Tumblr"><i class="fa fa-tumblr awp-sr-bar-i awp-icon-color"></i></div>
+                <div class="awp-share-item awp-tooltip-top" data-type="twitter" data-awptooltip="Share on Twitter"><i class="fa fa-twitter awp-sr-bar-i awp-icon-color"></i></div>
+                <div class="awp-share-item awp-tooltip-top" data-type="facebook" data-awptooltip="Share on Facebook"><i class="fa fa-facebook awp-sr-bar-i awp-icon-color"></i></div> 
+
+            </div>
+
+        </div>     
+       
+        <!-- PLAYLIST LIST -->
+        <div id="awp-playlist-list">
+
+             <ul id="playlist-soundcloud1">
+                <li class="awp-playlist-item" data-type="soundcloud" data-path="/playlists/109155400" data-limit="40" data-thumb-default="data/default_artwork/sc.jpg" data-thumb-quality="t300x300.jpg"></li>
+             </ul>
+
+             <ul id="playlist-audio2">
+                 <li class="awp-playlist-item" data-type="audio" data-mp3="media/audio/2/01.mp3" data-artist="Soundroll" data-title="A Way To The Top" data-thumb="media/audio/2/01.jpg" data-share="http://audiojungle.net/item/a-way-to-the-top/162200?ref=Tean" data-description="This is optional song description. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec magna. Donec consequat hendrerit magna."></li>
+
+                 <li class="awp-playlist-item" data-type="audio" data-mp3="media/audio/2/02.mp3" data-artist="Soundroll" data-title="Feel Good Journey" data-thumb="media/audio/2/02.jpg" data-share="http://audiojungle.net/item/feel-good-journey/119565?ref=Tean" data-description="Maecenas vehicula, leo eu commodo aliquam, sem dolor iaculis eros, vel mollis sem urna ac sapien. Integer mattis dui ut erat."></li>
+
+                 <li class="awp-playlist-item" data-type="audio" data-mp3="media/audio/2/03.mp3" data-artist="Soundroll" data-title="Fight No More" data-thumb="media/audio/2/03.jpg" data-share="http://audiojungle.net/item/fight-no-more/143561?ref=Tean" data-description="Duis egestas, quam faucibus interdum tincidunt, enim sem tincidunt tellus, sed condimentum tellus tortor ut mi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas."></li>
+
+                 <li class="awp-playlist-item" data-type="audio" data-mp3="media/audio/2/04.mp3" data-artist="Soundroll" data-title="Funky Boom" data-thumb="media/audio/2/04.jpg" data-share="http://audiojungle.net/item/funky-boom/127833?ref=Tean" data-description="Vestibulum accumsan enim nec ipsum. Nunc cursus sapien. Etiam fermentum luctus arcu. Curabitur vitae velit eget nisl ornare sollicitudin. Etiam vitae erat."></li>
+
+                 <li class="awp-playlist-item" data-type="audio" data-mp3="media/audio/2/05.mp3" data-artist="Soundroll" data-title="Pump The Club" data-thumb="media/audio/2/05.jpg" data-share="http://audiojungle.net/item/pump-the-club/166358?ref=Tean" data-description="Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris consequat. Quisque leo erat, egestas quis, pellentesque eu, suscipit sit amet, sem."></li>
+
+                 <li class="awp-playlist-item" data-type="audio" data-mp3="media/audio/2/06.mp3" data-artist="Soundroll" data-title="Rush" data-thumb="media/audio/2/06.jpg" data-share="http://audiojungle.net/item/rush/118500?ref=Tean" data-description="Maecenas eu erat condimentum neque molestie tincidunt. Fusce egestas, est ut fringilla facilisis, quam purus blandit dui, eget egestas mauris nibh ut diam."></li>
+
+                 <li class="awp-playlist-item" data-type="audio" data-mp3="media/audio/2/07.mp3" data-artist="Soundroll" data-title="Sun Is So Bright" data-thumb="media/audio/2/07.jpg" data-share="http://audiojungle.net/item/sun-is-so-bright/134956?ref=Tean" data-description="Suspendisse porta, quam ac ultricies sagittis, libero nisi gravida sem, in convallis sem ante nec purus. Suspendisse in tellus vitae purus porttitor pharetra."></li>
+
+                 <li class="awp-playlist-item" data-type="audio" data-mp3="media/audio/2/01.mp3" data-artist="Soundroll" data-title="A Way To The Top" data-thumb="media/audio/2/01.jpg" data-share="http://audiojungle.net/item/a-way-to-the-top/162200?ref=Tean" data-description="This is optional song description. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec magna. Donec consequat hendrerit magna."></li>
+
+                 <li class="awp-playlist-item" data-type="audio" data-mp3="media/audio/2/02.mp3" data-artist="Soundroll" data-title="Feel Good Journey" data-thumb="media/audio/2/02.jpg" data-share="http://audiojungle.net/item/feel-good-journey/119565?ref=Tean" data-description="Maecenas vehicula, leo eu commodo aliquam, sem dolor iaculis eros, vel mollis sem urna ac sapien. Integer mattis dui ut erat."></li>
+
+                 <li class="awp-playlist-item" data-type="audio" data-mp3="media/audio/2/03.mp3" data-artist="Soundroll" data-title="Fight No More" data-thumb="media/audio/2/03.jpg" data-share="http://audiojungle.net/item/fight-no-more/143561?ref=Tean" data-description="Duis egestas, quam faucibus interdum tincidunt, enim sem tincidunt tellus, sed condimentum tellus tortor ut mi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas."></li>
+
+                 <li class="awp-playlist-item" data-type="audio" data-mp3="media/audio/2/04.mp3" data-artist="Soundroll" data-title="Funky Boom" data-thumb="media/audio/2/04.jpg" data-share="http://audiojungle.net/item/funky-boom/127833?ref=Tean" data-description="Vestibulum accumsan enim nec ipsum. Nunc cursus sapien. Etiam fermentum luctus arcu. Curabitur vitae velit eget nisl ornare sollicitudin. Etiam vitae erat."></li>
+
+                 <li class="awp-playlist-item" data-type="audio" data-mp3="media/audio/2/05.mp3" data-artist="Soundroll" data-title="Pump The Club" data-thumb="media/audio/2/05.jpg" data-share="http://audiojungle.net/item/pump-the-club/166358?ref=Tean" data-description="Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris consequat. Quisque leo erat, egestas quis, pellentesque eu, suscipit sit amet, sem."></li>
+
+                 <li class="awp-playlist-item" data-type="audio" data-mp3="media/audio/2/06.mp3" data-artist="Soundroll" data-title="Rush" data-thumb="media/audio/2/06.jpg" data-share="http://audiojungle.net/item/rush/118500?ref=Tean" data-description="Maecenas eu erat condimentum neque molestie tincidunt. Fusce egestas, est ut fringilla facilisis, quam purus blandit dui, eget egestas mauris nibh ut diam."></li>
+
+                 <li class="awp-playlist-item" data-type="audio" data-mp3="media/audio/2/07.mp3" data-artist="Soundroll" data-title="Sun Is So Bright" data-thumb="media/audio/2/07.jpg" data-share="http://audiojungle.net/item/sun-is-so-bright/134956?ref=Tean" data-description="Suspendisse porta, quam ac ultricies sagittis, libero nisi gravida sem, in convallis sem ante nec purus. Suspendisse in tellus vitae purus porttitor pharetra."></li>
+
+                 <li class="awp-playlist-item" data-type="audio" data-mp3="media/audio/2/01.mp3" data-artist="Soundroll" data-title="A Way To The Top" data-thumb="media/audio/2/01.jpg" data-share="http://audiojungle.net/item/a-way-to-the-top/162200?ref=Tean" data-description="This is optional song description. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec magna. Donec consequat hendrerit magna."></li>
+
+                 <li class="awp-playlist-item" data-type="audio" data-mp3="media/audio/2/02.mp3" data-artist="Soundroll" data-title="Feel Good Journey" data-thumb="media/audio/2/02.jpg" data-share="http://audiojungle.net/item/feel-good-journey/119565?ref=Tean" data-description="Maecenas vehicula, leo eu commodo aliquam, sem dolor iaculis eros, vel mollis sem urna ac sapien. Integer mattis dui ut erat."></li>
+
+                 <li class="awp-playlist-item" data-type="audio" data-mp3="media/audio/2/03.mp3" data-artist="Soundroll" data-title="Fight No More" data-thumb="media/audio/2/03.jpg" data-share="http://audiojungle.net/item/fight-no-more/143561?ref=Tean" data-description="Duis egestas, quam faucibus interdum tincidunt, enim sem tincidunt tellus, sed condimentum tellus tortor ut mi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas."></li>
+
+                 <li class="awp-playlist-item" data-type="audio" data-mp3="media/audio/2/04.mp3" data-artist="Soundroll" data-title="Funky Boom" data-thumb="media/audio/2/04.jpg" data-share="http://audiojungle.net/item/funky-boom/127833?ref=Tean" data-description="Vestibulum accumsan enim nec ipsum. Nunc cursus sapien. Etiam fermentum luctus arcu. Curabitur vitae velit eget nisl ornare sollicitudin. Etiam vitae erat."></li>
+
+                 <li class="awp-playlist-item" data-type="audio" data-mp3="media/audio/2/05.mp3" data-artist="Soundroll" data-title="Pump The Club" data-thumb="media/audio/2/05.jpg" data-share="http://audiojungle.net/item/pump-the-club/166358?ref=Tean" data-description="Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris consequat. Quisque leo erat, egestas quis, pellentesque eu, suscipit sit amet, sem."></li>
+
+                 <li class="awp-playlist-item" data-type="audio" data-mp3="media/audio/2/06.mp3" data-artist="Soundroll" data-title="Rush" data-thumb="media/audio/2/06.jpg" data-share="http://audiojungle.net/item/rush/118500?ref=Tean" data-description="Maecenas eu erat condimentum neque molestie tincidunt. Fusce egestas, est ut fringilla facilisis, quam purus blandit dui, eget egestas mauris nibh ut diam."></li>
+
+                 <li class="awp-playlist-item" data-type="audio" data-mp3="media/audio/2/07.mp3" data-artist="Soundroll" data-title="Sun Is So Bright" data-thumb="media/audio/2/07.jpg" data-share="http://audiojungle.net/item/sun-is-so-bright/134956?ref=Tean" data-description="Suspendisse porta, quam ac ultricies sagittis, libero nisi gravida sem, in convallis sem ante nec purus. Suspendisse in tellus vitae purus porttitor pharetra."></li>
+
+                 <li class="awp-playlist-item" data-type="audio" data-mp3="media/audio/2/01.mp3" data-artist="Soundroll" data-title="A Way To The Top" data-thumb="media/audio/2/01.jpg" data-share="http://audiojungle.net/item/a-way-to-the-top/162200?ref=Tean" data-description="This is optional song description. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec magna. Donec consequat hendrerit magna."></li>
+
+                 <li class="awp-playlist-item" data-type="audio" data-mp3="media/audio/2/02.mp3" data-artist="Soundroll" data-title="Feel Good Journey" data-thumb="media/audio/2/02.jpg" data-share="http://audiojungle.net/item/feel-good-journey/119565?ref=Tean" data-description="Maecenas vehicula, leo eu commodo aliquam, sem dolor iaculis eros, vel mollis sem urna ac sapien. Integer mattis dui ut erat."></li>
+
+                 <li class="awp-playlist-item" data-type="audio" data-mp3="media/audio/2/03.mp3" data-artist="Soundroll" data-title="Fight No More" data-thumb="media/audio/2/03.jpg" data-share="http://audiojungle.net/item/fight-no-more/143561?ref=Tean" data-description="Duis egestas, quam faucibus interdum tincidunt, enim sem tincidunt tellus, sed condimentum tellus tortor ut mi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas."></li>
+
+                 <li class="awp-playlist-item" data-type="audio" data-mp3="media/audio/2/04.mp3" data-artist="Soundroll" data-title="Funky Boom" data-thumb="media/audio/2/04.jpg" data-share="http://audiojungle.net/item/funky-boom/127833?ref=Tean" data-description="Vestibulum accumsan enim nec ipsum. Nunc cursus sapien. Etiam fermentum luctus arcu. Curabitur vitae velit eget nisl ornare sollicitudin. Etiam vitae erat."></li>
+
+                 <li class="awp-playlist-item" data-type="audio" data-mp3="media/audio/2/05.mp3" data-artist="Soundroll" data-title="Pump The Club" data-thumb="media/audio/2/05.jpg" data-share="http://audiojungle.net/item/pump-the-club/166358?ref=Tean" data-description="Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris consequat. Quisque leo erat, egestas quis, pellentesque eu, suscipit sit amet, sem."></li>
+
+                 <li class="awp-playlist-item" data-type="audio" data-mp3="media/audio/2/06.mp3" data-artist="Soundroll" data-title="Rush" data-thumb="media/audio/2/06.jpg" data-share="http://audiojungle.net/item/rush/118500?ref=Tean" data-description="Maecenas eu erat condimentum neque molestie tincidunt. Fusce egestas, est ut fringilla facilisis, quam purus blandit dui, eget egestas mauris nibh ut diam."></li>
+
+                 <li class="awp-playlist-item" data-type="audio" data-mp3="media/audio/2/07.mp3" data-artist="Soundroll" data-title="Sun Is So Bright" data-thumb="media/audio/2/07.jpg" data-share="http://audiojungle.net/item/sun-is-so-bright/134956?ref=Tean" data-description="Suspendisse porta, quam ac ultricies sagittis, libero nisi gravida sem, in convallis sem ante nec purus. Suspendisse in tellus vitae purus porttitor pharetra."></li>
+            </ul>
+
+        </div>    
+
+		
+	</body>
+</html>
