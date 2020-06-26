@@ -1,19 +1,4 @@
 
-*{
-	margin:0;
-	padding:0;
-	border:0;
-	outline:none;
-}
-a{ 
-	text-decoration: none; 
-}
-body {
-	background: #000;
-	-webkit-font-smoothing: subpixel-antialiased;
-	-moz-osx-font-smoothing: grayscale;
-}
-
 canvas{
     max-width: none!important; 
 }

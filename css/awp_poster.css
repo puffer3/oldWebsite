@@ -1,18 +1,3 @@
-*{
-	margin:0;
-	padding:0;
-	border:0;
-	outline:none;
-}
-a{ 
-	text-decoration: none; 
-}
-body {
-	-webkit-font-smoothing: subpixel-antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	overflow: hidden;
-	background: url("../data/pattern/dark/4.png") repeat;                 
-}
 html, body { height: 100%; }
 
 
