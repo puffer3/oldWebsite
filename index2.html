@@ -1,97 +1,464 @@
-<!DOCTYPE HTML>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!DOCTYPE html>
+<!--[if IE 7 ]><html class="ie ie7 lte9 lte8 lte7" lang="en-US"><![endif]-->
+<!--[if IE 8]><html class="ie ie8 lte9 lte8" lang="en-US">	<![endif]-->
+<!--[if IE 9]><html class="ie ie9 lte9" lang="en-US"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html class="noIE" lang="en-US">
+
+
+    <link href="../node_modules/video.js/dist/video-js.min.css" rel="stylesheet">
+    <script src="../node_modules/video.js/dist/video.min.js"></script>
+<!--<![endif]-->
+	<head>
+
+		<title>Henry James Glover</title>
+
+		<!-- meta -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale = 1.0, maximum-scale=1.0, shrink-to-fit=no"/>
+		
+		<!-- google fonts -->
+		<link rel='stylesheet' href="https://fonts.googleapis.com/css?family=Raleway:300&display=swap">
+
+
+		
+		<!-- css -->
+		<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+		<link rel="stylesheet" href="assets/css/font-awesome.min.css">
+		<link rel="stylesheet" href="assets/css/style.css" media="screen"/>
+
+
+
+
+
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+			<script src="assets/js/html5shiv.js"></script>
+			<script src="assets/js/respond.js"></script>
+		<![endif]-->
+
+		<!--[if IE 8]>
+	    	<script src="assets/js/selectivizr.js"></script>
+	    <![endif]-->
+
+
+
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Audio Waveform Player with Playlist</title>
+		<title>Audio Waveform Player with Playlist</title>
 
-        <style type="text/css">
-
-            *{
-                margin:0;
-                padding:0;
-                border:0;
-                outline:none;
-            }
-            body {
-                background:#444;
-                color: #fff;
-            }
-            .tracks, .api{
-                margin:50px;
-                overflow: hidden;
-            }
-            a{ 
-                float:left;
-                clear:left;
-                text-decoration: none; 
-                color: #ad3;
-            }
-            a:hover{
-                text-decoration: underline;
-                color: #fff;
-            }
-           
-
-        </style>
-
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"><!-- icons -->
+		<link rel="stylesheet" type="text/css" href="css/awp_default.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.mCustomScrollbar.css" media="all" /><!-- playlist scroll -->
+        
         <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
         <script type="text/javascript" src="js/wavesurfer.js"></script>
-		<script type="text/javascript" src="js/jsmediatags.min.js"></script><!-- id3 tags -->
+        <script type="text/javascript" src="js/jsmediatags.min.js"></script><!-- id3 tags -->
+        <script type="text/javascript" src="js/jquery.mCustomScrollbar.concat.min.js"></script><!-- playlist scroll -->
         <script type="text/javascript" src="js/new_cb.js"></script>
-        <script type="text/javascript" src="js/new.js"></script>			
+        <script type="text/javascript" src="js/new.js?54"></script>			
         <script type="text/javascript">
 
             var awp_player;  
             jQuery(document).ready(function($){
 
-                awp_player = $("#awp-wrapper").awp({
-                    autoPlay:true,
+                var settings = {
+                    instanceName:"default",
+                    sourcePath:"",
+                    playlistList:"#awp-playlist-list",
+                    activePlaylist:"playlist-audio1",
+                    activeItem:0,
+                    volume:0.5,
+                    autoPlay:false,
+                    drawWaveWithoutLoad:false,
+                    randomPlay:false,
+                    loopingOn:true,
+                    autoAdvanceToNextMedia:true,
+                    mediaEndAction:"loop",
+                    soundCloudAppId:"r4wruADPCq7iqJomagvYpdehvILa2bgE",
+                    gDriveAppId:"AIzaSyB0Rw9B0WgjWQUYoxRi_rwpwr5E0ZxXuXs",
+                    useKeyboardNavigationForPlayback:true,
+                    usePlaylistScroll:false,
+                    playlistScrollOrientation:"vertical",
+                    playlistScrollTheme:"light",
+                    facebookAppId:"644413448983338",
+                    useNumbersInPlaylist: true,
+                    numberTitleSeparator: ".  ",
+                    artistTitleSeparator: " - ",
+                    playlistItemContent:"title",
                     wavesurfer:{
-                        waveColor: '#F444D9',
-                        progressColor: '#33FDFF',
-                        barWidth: 3,
-                        cursorColor: '#ffffff',
-                        cursorWidth: 1,
-                        height: 100
+                        waveColor: '#A8DBA8',
+                        progressColor: '#ff33ff',   
+                        barWidth: 0,
+                        cursorColor: '#0000ff',
+                        cursorWidth: 3,
+                        height: 200,
                     }
-                });
+                };
 
-            });
+                awp_player = $("#awp-wrapper").awp(settings);
 
-            var track_list = [
-                { mp3: 'media/audio/1/Tim_McMorris_-_Successful_Business_Venture.mp3', 
-                  title:'Successful Business Venture'}, 
-                { mp3: 'media/audio/1/Tim_McMorris_-_Happy_Days_Are_Here_To_Stay.mp3', 
-                  title:'Happy Days Are Here To Stay'}, 
-                { mp3: 'media/audio/1/Tim_McMorris_-_A_Bright_And_Hopeful_Future.mp3', 
-                  title:'A Bright And Hopeful Future'}
-            ];
+            }); 
 
         </script>
-        
-    </head>
-    <body>
-        
-        <!-- player code -->  
+	</head>
+	
+	<body>
+
+		<div id="wrapper">
+			
+			<div id="header" class="content-block header-wrapper">
+				<div class="header-wrapper-inner">
+					<section class="top clearfix">
+						<div class="pull-left">
+							<h1 class="header-title"><span class="logo">Henry James Glover</span></h1>
+
+
+						</div>
+<!-- 						<div class="pull-right">
+							<a class="toggleDrawer" href="#"><i class="fa fa-bars fa-2x"></i></a>
+						</div> -->
+					</section>
+					<section class="center">
+						<div class="slogan">
+							Audio Creative 
+						</div>
+						<div class="secondary-slogan">
+							Composer, Sound Designer and Studio Technician<br />
+							Based out of Los Angeles
+						</div>
+					</section>
+					<section class="bottom">
+						<a id="scrollToContent" href="#">
+							<div class="scroll-label">
+								Portfolio
+							</div>
+							<img src="assets/images/arrow_down.png">
+						</a>
+					</section>
+				</div>
+			</div><!-- header -->
+
+			
+<br>
+<br>
+<br>
+<br>
+
+<div class="content-block" id="portfolio">
+<center>
+<div class="container-fluid">
+<div class="card text-centered purp"  >
+	<div class="card-body">
+		<h6 class="card-title">Westworld Chase</h6>
+
+	</div>
+	<video
+	    class="video-js vjs-default-skin"
+	    controls disablePictureInPicture
+		preload="auto"
+	    poster="assets/images/ww_splash.jpg"
+		data-setup='{"fluid": true}'
+	    >
+	  <source src="media/Westworld.mp4" type="video/mp4"></source>
+	  <p class="vjs-no-js">
+	    To view this video please enable JavaScript, and consider upgrading to a
+	    web browser that
+	    <a href="https://videojs.com/html5-video-support/" target="_blank">
+	      supports HTML5 video
+	    </a>
+	  </p>
+	</video>
+
+		<p class="card-text">
+			<br>
+			<br>
+			I created music for this HBO Westworld car chase segment as an entry into a Spitfire Audio Scoring Competition.  
+			
+		<br /><br />
+
+			All musical sounds were my adddition.  The dialogue and sound effects provided by HBO.  In addition to Spitfire's excellent sample libraries I used synthesizer patches I designed specifically for this piece in Zebra2.  Additional plug-ings by Fabfilter, Valhalla and Soundtoys were used for further processing to animate and shape the sounds.
+			<br>
+		<br>
+		<br>
+
+		</p>
+
+
+	    <p class="card-text"><small class="text-muted">Demonstrates: Composition, Sound Design, Mixing</small></p>
+
+</div>
+</div>
+
+
+<br>
+<br>
+<br>
+
+
+
+
+<center>
+	<div class="container-fluid">
+		<div class="card text-centered purp"  style="max-width">
+			<div class="card-body">
+				<h6 class="card-title">eSuite</h6>
+				<p class="card-text">Here are some examples of the musical and abstract sounds I make on synthesizers.</p>
+			</div>
+<!-- 				<video id="Cue1" class="video-js vjs-default-skin"   controls="" preload="auto" poster="" data-setup='{"fluid": true}'>
+				<source src="media/cue1.mp3" type="audio/mp3"/>
+				</video>
+				<br>
+				<video id="Cue2" class="video-js vjs-default-skin"   controls="" preload="auto" poster="" data-setup='{"fluid": true}'>
+				<source src="media/cue2.mp3" type="audio/mp3"/>
+				</video>
+				<br>
+				<video id="Cue3" class="video-js vjs-default-skin"   controls="" preload="auto" poster="" data-setup='{"fluid": true}'>
+				<source src="media/cue3.mp3" type="audio/mp3"/>
+				</video>
+				<br>
+				<video id="Cue4" class="video-js vjs-default-skin"   controls="" preload="auto" poster="" data-setup='{"fluid": true}'>
+				<source src="media/cue4.mp3" type="audio/mp3"/>
+				</video>
+				<br>
+				<video id="Cue4" class="video-js vjs-default-skin"   controls="" preload="auto" poster="" data-setup='{"fluid": true}'>
+				<source src="media/BW.mp3" type="audio/mp3"/>
+				</video>
+				<br>
+				<br> -->
+
+
+
+        <!-- player code -->   
         <div id="awp-wrapper">
-            <div class="awp-waveform awp-hidden"></div>  
-        </div>
 
-        <div class="tracks">
-            <a href='#' onClick="awp_player.inputAudio(track_list[0]); return false;">Tim McMorris - A Bright And Hopeful Future</a>
-            <a href='#' onClick="awp_player.inputAudio(track_list[1]); return false;">Tim McMorris - Happy Days Are Here To Stay</a>
-            <a href='#' onClick="awp_player.inputAudio(track_list[2]); return false;">Tim McMorris - A Bright And Hopeful Future</a>
-        </div>    
+            <div class="awp-player-thumb-wrapper">
+			
+			<div class="awp-player-thumb"></div>
+			
+			<div class="awp-playback-toggle"><i class="fa fa-play"></i></div>
 
-        <div class="api">
-            <a href="#" onClick="awp_player.playMedia(); return false;">Play current media</a>
-            <a href="#" onClick="awp_player.pauseMedia(); return false;">Pause current media</a>
-            <a href="#" onClick="awp_player.togglePlayback(); return false;">Toggle playback</a>
-            <a href="#" onClick="awp_player.setVolume(0); return false;">Set volume (0)</a>
-            <a href="#" onClick="awp_player.setVolume(0.5); return false;">Set volume (0.5)</a>
-            <a href="#" onClick="awp_player.setVolume(1); return false;">Set volume (1)</a>
-        </div>
-    
-    </body>
+                <div class="awp-volume-wrapper">
+                    <div class="awp-player-volume"><i class="fa fa-volume-up"></i></div>
+                    <div class="awp-volume-seekbar awp-tooltip-top">
+                         <div class="awp-volume-bg"></div>
+                         <div class="awp-volume-level"></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="awp-player-holder">
+
+                <div class="awp-waveform-wrap">
+                    <div class="awp-waveform awp-hidden"></div>  
+                    <div class="awp-waveform-img awp-hidden"><!-- image waveform backup -->
+                        <div class="awp-waveform-img-load"></div>
+                        <div class="awp-waveform-img-progress-wrap"><div class="awp-waveform-img-progress"></div></div>
+                    </div>
+                    <span class="awp-waveform-preloader"></span>
+                </div>  
+
+                <p class="awp-media-time-total awp-hidden">0:00</p>
+                <p class="awp-media-time-current awp-hidden">0:00</p>
+
+            </div>
+              
+            <div class="awp-playlist-holder">
+                <div class="awp-playlist-filter-msg"><p>NOTHING FOUND!</p></div>
+                <div class="awp-playlist-inner">
+                    <div class="awp-playlist-content">
+                        <!-- playlist items are appended here! --> 
+                    </div>
+                </div>
+                
+                <div class="awp-preloader"></div>
+
+<!--                 <div class="awp-bottom-bar">
+
+                    <input class="awp-search-filter" type="text" value="filter...">
+                    <div class="awp-sort-alpha awp-tooltip-top" data-awptooltip="Alphabetic sort"><i class="fa fa-sort-alpha-desc awp-sr-bar-i awp-icon-color"></i></div>
+
+                    <div class="awp-share-item awp-tooltip-top" data-type="tumblr" data-awptooltip="Share on Tumblr"><i class="fa fa-tumblr awp-sr-bar-i awp-icon-color"></i></div>
+                    <div class="awp-share-item awp-tooltip-top" data-type="twitter" data-awptooltip="Share on Twitter"><i class="fa fa-twitter awp-sr-bar-i awp-icon-color"></i></div>
+                    <div class="awp-share-item awp-tooltip-top" data-type="facebook" data-awptooltip="Share on Facebook"><i class="fa fa-facebook awp-sr-bar-i awp-icon-color"></i></div> 
+
+                </div>
+ -->
+            </div>
+        
+        </div>  
+
+
+
+        <!-- PLAYLIST LIST -->
+        <div id="awp-playlist-list">
+
+             <!-- audio playlist -->
+             <ul id="playlist-audio1">
+
+                <li class="awp-playlist-item" data-type="audio" data-mp3="media/cue1.mp3" data-artist="Henry Glover" data-title="Electronic Dream" data-thumb="media/thumb.jpg" data-share="http://audiojungle.net/item/successful-business-venture/154097?ref=Tean" data-peak-load="peaks/Tim_McMorris_-_Successful_Business_Venture.png" data-peak-progress="peaks/Tim_McMorris_-_Successful_Business_Venture_progress.png"></li> 
+
+                <li class="awp-playlist-item" data-type="audio" data-mp3="media/cue2.mp3" data-artist="Henry Glover" data-title="Electronic Dream" data-thumb="media/thumb.jpg" data-share="http://audiojungle.net/item/successful-business-venture/154097?ref=Tean" data-peak-load="peaks/Tim_McMorris_-_Successful_Business_Venture.png" data-peak-progress="peaks/Tim_McMorris_-_Successful_Business_Venture_progress.png"></li> 
+                <li class="awp-playlist-item" data-type="audio" data-mp3="media/cue3.mp3" data-artist="Henry Glover" data-title="Electronic Dream" data-thumb="media/thumb.jpg" data-share="http://audiojungle.net/item/successful-business-venture/154097?ref=Tean" data-peak-load="peaks/Tim_McMorris_-_Successful_Business_Venture.png" data-peak-progress="peaks/Tim_McMorris_-_Successful_Business_Venture_progress.png"></li> 
+                <li class="awp-playlist-item" data-type="audio" data-mp3="media/cue4.mp3" data-artist="Henry Glover" data-title="Electronic Dream" data-thumb="media/thumb.jpg" data-share="http://audiojungle.net/item/successful-business-venture/154097?ref=Tean" data-peak-load="peaks/Tim_McMorris_-_Successful_Business_Venture.png" data-peak-progress="peaks/Tim_McMorris_-_Successful_Business_Venture_progress.png"></li> 
+                <li class="awp-playlist-item" data-type="audio" data-mp3="media/cue5.mp3" data-artist="Henry Glover" data-title="Electronic Dream" data-thumb="media/thumb.jpg" data-share="http://audiojungle.net/item/successful-business-venture/154097?ref=Tean" data-peak-load="peaks/Tim_McMorris_-_Successful_Business_Venture.png" data-peak-progress="peaks/Tim_McMorris_-_Successful_Business_Venture_progress.png"></li> 
+ 
+
+             </ul>
+
+        </div>     
+			    <p class="card-text"><small class="text-muted"> Demonstrates: Synthesis, Composition, Sound Design, Mixing</small></p>	
+			</div>	
+		</div>	
+</center>
+
+<br>
+<br>
+<br>
+
+
+
+</center>
+
+
+
+
+<div class="content-block" id="portfolio">
+<center>
+<div class="container-fluid">
+<div class="card text-centered purp"  >
+	<div class="card-body">
+		<h6 class="card-title">Iron Giant</h6>
+
+	</div>
+	<video
+	    class="video-js vjs-default-skin"
+	    controls disablePictureInPicture
+		preload="auto"
+	    poster="assets/images/IG4.jpg"
+		data-setup='{"fluid": true}'
+	    >
+	  <source src="media/IG_640.mp4" type="video/mp4"></source>
+	  <p class="vjs-no-js">
+	    To view this video please enable JavaScript, and consider upgrading to a
+	    web browser that
+	    <a href="https://videojs.com/html5-video-support/" target="_blank">
+	      supports HTML5 video
+	    </a>
+	  </p>
+	</video>
+
+			<p class="card-text">
+			This short selection has been replaced with original sounds. 
+			The laser sounds were all generated via modular synthesizer, while the metal sounds were processed from original field recordings recorded in a recycling warehouse.
+		<br /><br />
+			Various recorded sources include a vintage spotlight controls, sheet metal, the servo motors from an old VCR and a pile of Imac cases.
+
+		</p>
+	    <p class="card-text"><small class="text-muted">Demonstrates: Sound Design, Modular Synthesis, Field Recording, Use of Sound Banks, Mixing</small></p>
+
+</div>
+</div>
+
+</center>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
+<br>
+<br>
+<br>
+<br>
+<center>
+	<div class="container-fluid">
+		<div class="card text-centered purp"  style="max-width">
+			<div class="card-body">
+				<h6 class="card-title">The Terroir of Tea</h6>
+				<p class="card-text">This passage was recorded with an SM7 and processed with Izotope RX, Some EQ and a very light bit of Renaissance compressor. Background music quickly sequenced in numerology with the Zebra2 synthesizer and mixed with side chain compression. Leveled out with FabFilter Pro L2.</p>
+			</div>
+				<video id="teaterroir" class="video-js vjs-default-skin"   controls="" preload="auto" poster="assets/images/teabanner.jpg" data-setup='{"fluid": true}'>
+				<source src="media/terroirtea.mp3" type="audio/mp3"/>
+				</video>
+			    <p class="card-text"><small class="text-muted"> Demonstrates: Vocal Recording, Dialogue Editing, Music Composition, Mastering</small></p>	
+			</div>	
+		</div>	
+</center>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<!-- 
+<center>
+	<div class="container-fluid">
+	<div class="card text-centered purp"  style="max-width">
+		<div class="card-body">
+			<h6 class="card-title">Blu Wednesday</h6>
+			<p class="card-text">A lot of these sounds I created using FM8, Serum, Waldorf Attack software synthesizers. The bass sounds were created with a Korg MS-10 with several parameters being controlled by Silent Way software.</p>
+		</div>
+			<video id="Bluwednesday" class="video-js vjs-default-skin"   controls="" preload="auto" poster="assets/images/ZCW.jpg" data-setup='{"fluid": true}'>
+			<source src="media/BW.mp3" type="audio/mp3"/>
+			</video>
+			    <p class="card-text"><small class="text-muted"> Demonstrates: Sound Design, Mixing, Composition</small></p>	
+		</div>	
+		</div>	
+</center>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br> -->
+<br>
+
+
+
+
+
+
+
+
+
+
+
+			<div class="content-block" id="footer">
+				<div class="container">
+						<p>Available to make sounds for your project.  Let's talk.</p>
+						<br>
+					<div>
+						<a class="footer-link" href="mailto:henryglover@protonmail.com">HenryGlover@Protonmail.com</a>
+					</div>
+							<br>
+						
+											<br>
+					<p>Website Designed by Henry Glover 2020.</p>
+				</div>
+			</div>
+		</div><!-- #footer -->
+
+
+		</div><!--/#wrapper-->
+
+
+
+
+		<script src="assets/js/jquery-2.1.3.min.js"></script>
+		<script src="assets/js/jquery-migrate-1.2.1.min.js"></script>
+		<script src="assets/js/bootstrap.min.js"></script>
+		<script src="assets/js/jquery.actual.min.js"></script>
+		<script src="assets/js/jquery.scrollTo.min.js"></script>
+		<script src="assets/js/script.js"></script>
+
+	</body>
 </html>
